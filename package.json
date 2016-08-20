@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "comp397final",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "dependencies": {
+    "bower": "3.10.3"
+},
+"scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pudding4ever/aaaaa.git"
@@ -15,10 +18,6 @@
   "bugs": {
     "url": "https://github.com/Pudding4ever/aaaaa/issues"
   },
-  "homepage": "https://github.com/Pudding4ever/aaaaa#readme",
-  "dependencies": {
-    "bower": "3.10.3"
-},
-"scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install"
-}}
+  "homepage": "https://github.com/Pudding4ever/aaaaa#readme"
+  
+}
