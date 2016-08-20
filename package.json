@@ -1,7 +1,22 @@
 {
-    "name": "comp397final",
-    "version": "1.0.0",
-"dependencies": {
+  "name": "aaaaa",
+  "version": "1.0.0",
+  "description": "comp397final",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pudding4ever/aaaaa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pudding4ever/aaaaa/issues"
+  },
+  "homepage": "https://github.com/Pudding4ever/aaaaa#readme",
+  "dependencies": {
     "bower": "3.10.3"
 },
 "scripts": {
