@@ -27,7 +27,7 @@ namespace core {
 
         // asset manifest for images and sounds
     let assetData:objects.Asset[] = [
-        { id: "starfield", src: "Assets/images/starfield.gif" }
+        { id: "starfield", src: "../../Assets/images/starfield.gif" }
     ];
 
     //Game Scenes
@@ -36,6 +36,8 @@ namespace core {
     let exit: scenes.exit;
     let help: scenes.help;
     let die: scenes.die;
+
+    //?
 
     function preload(): void {
         assets = new createjs.LoadQueue(); // instantiates the loader

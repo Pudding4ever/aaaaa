@@ -15,7 +15,7 @@ var core;
     var ExitGame;
     // asset manifest for images and sounds
     var assetData = [
-        { id: "starfield", src: "Assets/images/starfield.gif" }
+        { id: "starfield", src: "../../Assets/images/starfield.gif" }
     ];
     //Game Scenes
     var start;
@@ -23,6 +23,7 @@ var core;
     var exit;
     var help;
     var die;
+    //?
     function preload() {
         core.assets = new createjs.LoadQueue(); // instantiates the loader
         core.assets.installPlugin(createjs.Sound);
