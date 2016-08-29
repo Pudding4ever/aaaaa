@@ -84,11 +84,10 @@ module managers {
                     }
                  }
             }
-   public checkBulletBoss(array: Array<objects.enemy>, other: objects.cBullet)
+   public checkBulletBoss(boss: objects.boss, other: objects.cBullet)
             {
-                 for (var i: number = 0; i < array.length; i++)
                  {
-                    var a = array[i]; 
+                    var a = boss;
                     if (objects.Vector2.distance(other.position, a.position) < ((5 + a.halfHeight)) && other.active == true) {
                     console.log("Boss struck by bullet");
                     createjs.Sound.play("explosion");

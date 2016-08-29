@@ -11,6 +11,7 @@
 /// <reference path="../objects/starfield.ts"/>
 /// <reference path="../objects/pstarfield.ts"/>
 /// <reference path="../objects/enemy.ts"/>
+/// <reference path="../objects/boss.ts"/>
 /// <reference path="../managers/collision.ts"/>
 /// <reference path="../managers/keyboard.ts"/>
 /// <reference path="../scenes/start.ts"/>

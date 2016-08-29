@@ -26,6 +26,7 @@ var scenes;
             this._Starfield = new objects.Starfield("starfield");
             this._PStarfield = new objects.PStarfield("pstarfield");
             this._player = new objects.Player("player");
+            this.Player = this._player;
             this.addChild(this._Starfield);
             this.addChild(this._PStarfield);
             this.addChild(this._player);

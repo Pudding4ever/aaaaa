@@ -146,7 +146,6 @@ private kb: managers.cKeyboardInput;
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            console.log(this.width, this.height);
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
             this.x = 500;

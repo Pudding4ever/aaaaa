@@ -12,8 +12,8 @@ var objects;
      * @class Cloud
      * @extends {createjs.Bitmap}
      */
-    var enemy = (function (_super) {
-        __extends(enemy, _super);
+    var boss = (function (_super) {
+        __extends(boss, _super);
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of the GameObject.
@@ -21,12 +21,12 @@ var objects;
          * @constructor
          * @param {string} imageString
          */
-        function enemy(imageString) {
+        function boss(imageString) {
             _super.call(this, core.assets.getResult(imageString));
             this._initialize(imageString);
             this.start();
         }
-        Object.defineProperty(enemy.prototype, "width", {
+        Object.defineProperty(boss.prototype, "width", {
             // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
             get: function () {
                 return this._width;
@@ -37,14 +37,14 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "halfWidth", {
+        Object.defineProperty(boss.prototype, "halfWidth", {
             get: function () {
                 return this._width * 0.5;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "height", {
+        Object.defineProperty(boss.prototype, "height", {
             get: function () {
                 return this._height;
             },
@@ -54,14 +54,14 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "halfHeight", {
+        Object.defineProperty(boss.prototype, "halfHeight", {
             get: function () {
                 return this._height * 0.5;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "name", {
+        Object.defineProperty(boss.prototype, "name", {
             get: function () {
                 return this._name;
             },
@@ -71,7 +71,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "position", {
+        Object.defineProperty(boss.prototype, "position", {
             get: function () {
                 return this._position;
             },
@@ -81,7 +81,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(enemy.prototype, "isColliding", {
+        Object.defineProperty(boss.prototype, "isColliding", {
             get: function () {
                 return this._isColliding;
             },
@@ -91,10 +91,11 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        enemy.prototype._initialize = function (imageString) {
+        boss.prototype._initialize = function (imageString) {
             this.e = new createjs.Bitmap("../../Assets/images/eship.png");
             this.e2 = new createjs.Bitmap("../../Assets/images/eship2.png");
             this.e3 = new createjs.Bitmap("../../Assets/images/eship3.png");
+            this.bosshealth = 50;
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -112,42 +113,15 @@ var objects;
          * @method _reset
          * @returns {void}
          */
-        enemy.prototype.reset = function () {
+        boss.prototype.reset = function () {
             this._reset();
         };
-        enemy.prototype._reset = function () {
-            //SET ENEMY TYPE
-            this.evade = false;
-            if (this._etype < 2) {
-                this._etype++;
-            }
-            else {
-                this._etype = 0;
-            }
-            ;
-            switch (this._etype) {
-                case 0:
-                    this.image = this.e.image;
-                    this._dy = 0;
-                    this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
-                    this.x = 1000;
-                    this.y = Math.floor((Math.random() * (500 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
-                case 1:
-                    this.image = this.e2.image;
-                    this._dy = -10;
-                    this._dx = Math.floor((Math.random() * -2) - 0); // horizontal drift
-                    this.x = 1000;
-                    this.y = Math.floor((Math.random() * (500 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
-                case 2:
-                    this.image = this.e3.image;
-                    this._dy = 0;
-                    this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
-                    this.x = 1000;
-                    this.y = Math.floor((Math.random() * (900 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
-            }
+        boss.prototype._reset = function () {
+            this.image = this.e.image;
+            this._dy = 0;
+            this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
+            this.x = 1000;
+            this.y = Math.floor((Math.random() * (500 - (this.height * 0.5))) + (this.height * 0.5));
         };
         /**
          * This method checks if the object has reached its boundaries
@@ -156,7 +130,7 @@ var objects;
          * @method _checkBounds
          * @returns {void}
          */
-        enemy.prototype._checkBounds = function () {
+        boss.prototype._checkBounds = function () {
             if (this.x >= (1850 - (this.width * 0.5))) {
                 this._reset();
             }
@@ -182,7 +156,7 @@ var objects;
          * @method start
          * @returns {void}
          */
-        enemy.prototype.start = function () {
+        boss.prototype.start = function () {
             this._reset();
         };
         /**
@@ -193,67 +167,53 @@ var objects;
          * @method update
          * @returns {void}
          */
-        enemy.prototype.update = function () {
-            //DETERMINE ENEMY BEHAVIOUR
-            switch (this._etype) {
-                case 0:
-                    //nothing necessary, just move straight forward
-                    break;
-                case 1:
-                    //zigzag up and down as you move across
-                    if (this.y > 500) {
-                        this._dy = -10;
-                    }
-                    else if (this.y < 0) {
-                        this._dy = 10;
-                    }
-                    break;
-                case 2:
-                    //dogfight the player
-                    //that is: move to 800x, match y with player, fire a burst of bullets, withdraw
-                    console.log(this.evade);
-                    if (this.x >= 600 && this.evade == false) {
-                        this._dx = -5;
-                    }
-                    else {
-                        this._dx = 0;
-                    }
-                    ;
-                    if (this.evade == true) {
-                        this._dx = 2;
-                    }
-                    if (this.x >= 1000) {
-                        this.evade = false;
-                    }
-                    if (core.currentScene.Player.y > this.y && this.evade == false) {
-                        this._dy = 3;
-                    }
-                    if (core.currentScene.Player.y < this.y && this.evade == false) {
-                        this._dy = -3;
-                    }
-                    if ((core.currentScene.Player.y - this.y) < 5 && (core.currentScene.Player.y - this.y) > -5 && this.x <= 650 && this.evade == false) {
-                        if (this.y > 270) {
-                            console.log("FIRE");
-                            //fire bullets
-                            this._dy = -7;
-                            this.evade = true;
-                        }
-                        else {
-                            //fire bullets
-                            console.log("FIRE");
-                            this._dy = 7;
-                            this.evade = true;
-                        }
-                    }
-                    break;
-            }
+        boss.prototype.update = function () {
+            this.bossfight();
             this.position = new objects.Vector2(this.x, this.y);
             this.y += this._dy;
             this.x += this._dx;
             this._checkBounds();
         };
-        return enemy;
+        boss.prototype.bossfight = function () {
+            //DETERMINE ENEMY BEHAVIOUR
+            //that is: move to 800x, match y with player, fire a burst of bullets, withdraw
+            console.log(this.evade);
+            if (this.x >= 600 && this.evade == false) {
+                this._dx = -5;
+            }
+            else {
+                this._dx = 0;
+            }
+            ;
+            if (this.evade == true) {
+                this._dx = 2;
+            }
+            if (this.x >= 1000) {
+                this.evade = false;
+            }
+            if (core.currentScene.Player.y > this.y && this.evade == false) {
+                this._dy = 3;
+            }
+            if (core.currentScene.Player.y < this.y && this.evade == false) {
+                this._dy = -3;
+            }
+            if ((core.currentScene.Player.y - this.y) < 5 && (core.currentScene.Player.y - this.y) > -5 && this.x <= 650 && this.evade == false) {
+                if (this.y > 270) {
+                    console.log("FIRE");
+                    //fire bullets
+                    this._dy = -7;
+                    this.evade = true;
+                }
+                else {
+                    //fire bullets
+                    console.log("FIRE");
+                    this._dy = 7;
+                    this.evade = true;
+                }
+            }
+        };
+        return boss;
     }(createjs.Bitmap));
-    objects.enemy = enemy;
+    objects.boss = boss;
 })(objects || (objects = {}));
-//# sourceMappingURL=enemy.js.map
+//# sourceMappingURL=boss.js.map

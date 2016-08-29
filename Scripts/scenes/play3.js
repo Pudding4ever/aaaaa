@@ -24,7 +24,7 @@ var scenes;
             this.bullet_array = core.bullet_array;
             this._collision = new managers.Collision();
             this._Starfield = new objects.Starfield("starfield");
-            this._PStarfield = new objects.PStarfield("nebula");
+            this._PStarfield = new objects.PStarfield("pstarfield");
             this._player = new objects.Player("player");
             this.Player = this._player;
             this.addChild(this._Starfield);
@@ -33,36 +33,33 @@ var scenes;
             // Add Menu Labels
             this._liveslabel = new GUI.Label("LIVES: " + core.lives, "16px", "Impact", "#FFFFFF", 50, 520, true);
             this.addChild(this._liveslabel);
-            this._scorelabel = new GUI.Label("ENEMIES DESTROYED: " + this.destroyed, "16px", "Impact", "#FFFFFF", 200, 520, true);
+            this._scorelabel = new GUI.Label("BOSS LIFE: " + this.destroyed, "16px", "Impact", "#FFFFFF", 200, 520, true);
             this.addChild(this._scorelabel);
             // add this scene to the global scene container
             core.stage.addChild(this);
             //place player ship appropriately
             this._player.placeship(200, 300);
-            //populate field with asteroids
-            this.CreateBoss();
+            //populate field with asteroids            
         };
         play3.prototype.Update = function () {
             // scene updates happen here...
             this._Starfield.update();
             this._PStarfield.update();
             this._player.update();
+            if (this.levelboss != null) {
+                this.levelboss.update;
+            }
             this.checkbullets();
             this._collision.checkPlayerEnemy(this.asteroid_array, this._player);
-            this._drawAllAsteroids();
             this._liveslabel.text = ("LIVES: " + core.lives);
             this._scorelabel.text = ("ENEMIES DESTROYED: " + this.destroyed);
-            if (this.destroyed <= 15) {
-                core.scene = config.scene.PLAY3;
-                core.changeScene();
-            }
         };
         play3.prototype.checkbullets = function () {
             if (core.bullet_array.length > 0) {
                 for (var i = 0; i < core.bullet_array.length; i++) {
                     if (core.bullet_array[i] != null && core.bullet_array[i].position != null) {
                         this._collision.checkPlayerBullet(this._player, core.bullet_array[i]);
-                        this._collision.checkBulletBoss(this.asteroid_array, core.bullet_array[i]);
+                        this._collision.checkBulletBoss(this.levelboss, core.bullet_array[i]);
                     }
                 }
             }
@@ -80,19 +77,12 @@ var scenes;
             core.scene = config.scene.PLAY;
             core.changeScene();
         };
-        play3.prototype._drawAllAsteroids = function () {
-            for (var i = 0; i < this.asteroid_array.length; i++) {
-                var a = this.asteroid_array[i];
-                a.update();
-            }
-        };
         play3.prototype.CreateBoss = function () {
             console.log("create boss called");
             var asteroid;
-            asteroid = new objects.enemy("boss");
-            asteroid.isboss == true;
+            asteroid = new objects.boss("boss");
+            this.levelboss = asteroid;
             this.addChild(asteroid);
-            this.asteroid_array.push(asteroid);
             console.log("made new enemy");
         };
         return play3;

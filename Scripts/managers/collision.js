@@ -66,9 +66,9 @@ var managers;
                 }
             }
         };
-        Collision.prototype.checkBulletBoss = function (array, other) {
-            for (var i = 0; i < array.length; i++) {
-                var a = array[i];
+        Collision.prototype.checkBulletBoss = function (boss, other) {
+            {
+                var a = boss;
                 if (objects.Vector2.distance(other.position, a.position) < ((5 + a.halfHeight)) && other.active == true) {
                     console.log("Boss struck by bullet");
                     createjs.Sound.play("explosion");

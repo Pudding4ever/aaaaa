@@ -6,7 +6,7 @@ module objects {
      * @class Cloud
      * @extends {createjs.Bitmap}
      */
-    export class enemy extends createjs.Bitmap {
+    export class boss extends createjs.Bitmap {
         private _moverate: number;
 
 
@@ -27,6 +27,7 @@ module objects {
         public sound: createjs.AbstractSoundInstance;
         public _etype: number;
         public evade: boolean;
+        public bosshealth: number;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
 
@@ -97,6 +98,7 @@ module objects {
             this.e = new createjs.Bitmap("../../Assets/images/eship.png");
             this.e2 = new createjs.Bitmap("../../Assets/images/eship2.png");
             this.e3 = new createjs.Bitmap("../../Assets/images/eship3.png");
+            this.bosshealth = 50;
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -119,34 +121,12 @@ module objects {
         }
 
         private _reset(): void {
-            //SET ENEMY TYPE
-            this.evade = false;
-            if (this._etype < 2) { this._etype++; }
-            else { this._etype = 0 };
-            switch (this._etype) {
-                case 0:
                     this.image = this.e.image;
                     this._dy = 0;
                     this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
                     this.x = 1000
                     this.y = Math.floor((Math.random() * (500 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
-                case 1:
-                    this.image = this.e2.image;
-                    this._dy = -10;
-                    this._dx = Math.floor((Math.random() * -2) - 0); // horizontal drift
-                    this.x = 1000
-                    this.y = Math.floor((Math.random() * (500 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
-                case 2:
-                    this.image = this.e3.image;
-                    this._dy = 0;
-                    this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
-                    this.x = 1000
-                    this.y = Math.floor((Math.random() * (900 - (this.height * 0.5))) + (this.height * 0.5));
-                    break;
             }
-        }
 
         /**
          * This method checks if the object has reached its boundaries
@@ -199,23 +179,17 @@ module objects {
          * @returns {void}
          */
         public update(): void {
-            //DETERMINE ENEMY BEHAVIOUR
+            this.bossfight();
+            this.position = new Vector2(this.x, this.y);
+            this.y += this._dy;
+            this.x += this._dx;
+            this._checkBounds();
 
-            switch (this._etype) {
-                case 0:
-                    //nothing necessary, just move straight forward
-                    break;
-                case 1:
-                    //zigzag up and down as you move across
-                    if (this.y > 500) {
-                        this._dy = -10
-                    }
-                    else if (this.y < 0) {
-                        this._dy = 10;
-                    }
-                    break;
-                case 2:
-                    //dogfight the player
+        }
+
+        public bossfight(): void
+        {
+  //DETERMINE ENEMY BEHAVIOUR
                     //that is: move to 800x, match y with player, fire a burst of bullets, withdraw
                     console.log(this.evade);
                     if (this.x >= 600 && this.evade == false) {
@@ -251,18 +225,7 @@ module objects {
                             this._dy = 7;
                             this.evade = true;
                         }
-                    }
-
-
-                    break;
-
-            }
-            this.position = new Vector2(this.x, this.y);
-            this.y += this._dy;
-            this.x += this._dx;
-            this._checkBounds();
-
-
         }
+    }
     }
 }
