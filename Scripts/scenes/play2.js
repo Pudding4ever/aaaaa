@@ -52,7 +52,7 @@ var scenes;
             this._drawAllAsteroids();
             this._liveslabel.text = ("LIVES: " + core.lives);
             this._scorelabel.text = ("ENEMIES DESTROYED: " + this.destroyed);
-            if (this.destroyed <= 15) {
+            if (this.destroyed >= 15) {
                 core.scene = config.scene.PLAY3;
                 core.changeScene();
             }

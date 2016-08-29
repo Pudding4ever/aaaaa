@@ -67,7 +67,7 @@ module scenes {
             this._drawAllAsteroids();
             this._liveslabel.text = ("LIVES: " + core.lives);
             this._scorelabel.text = ("ASTEROIDS DESTROYED: " + this.destroyed);
-            if(this.destroyed <= 30){
+            if(this.destroyed >= 30){
                 core.scene = config.scene.PLAY2;
                 core.changeScene();
             }
