@@ -5,8 +5,8 @@ var config;
         }
         scene.START = 0;
         scene.PLAY = 1;
-        scene.HELP = 2;
-        scene.EXIT = 3;
+        scene.PLAY2 = 2;
+        scene.PLAY3 = 3;
         scene.DIE = 4;
         return scene;
     }());

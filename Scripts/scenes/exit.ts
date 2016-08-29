@@ -2,8 +2,8 @@ module scenes {
     export class exit extends objects.Scene {
         //  PRIVATE INSTANCE VARIABLES
         private _Starfield: objects.Starfield;
-        private _menuLabel: objects.Label;
-        private _startButton: objects.Button;
+        private _menuLabel: GUI.Label;
+        private _startButton: GUI.Button;
 
         /**
          * Creates an instance of Menu.
@@ -22,16 +22,12 @@ module scenes {
             this.addChild(this._Starfield);
 
             // Add Menu Label
-            this._menuLabel = new objects.Label(
+            this._menuLabel = new GUI.Label(
                 "MAIL PILOT", "60px","Dock51", "#FFFF00",
                 320, 240, true
                 );
             this.addChild(this._menuLabel);
 
-            // add the start button
-            this._startButton = new objects.Button(
-                "startButton", 320, 420, true
-            )
             
             this.addChild(this._startButton);
 

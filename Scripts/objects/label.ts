@@ -1,4 +1,4 @@
-module objects {
+module GUI {
     /**
      * This is a generic Label class for the Game BoilerPlate
      * 
@@ -8,7 +8,7 @@ module objects {
      */
     export class Label extends createjs.Text {
         constructor(
-            private labelString: string,
+            public labelString: string,
             private fontSize: string,
             private fontFamily: string,
             private fontColour: string,

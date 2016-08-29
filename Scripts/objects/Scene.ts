@@ -9,7 +9,11 @@ module objects {
      * @class Scene
      * @extends {createjs.Container}
      */
+
     export abstract class Scene extends createjs.Container {
+       
+       public Player: objects.Player;
+       
         constructor() {
             super();
 

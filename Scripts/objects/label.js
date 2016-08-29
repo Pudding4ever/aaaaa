@@ -3,8 +3,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var objects;
-(function (objects) {
+var GUI;
+(function (GUI) {
     /**
      * This is a generic Label class for the Game BoilerPlate
      *
@@ -30,6 +30,6 @@ var objects;
         }
         return Label;
     }(createjs.Text));
-    objects.Label = Label;
-})(objects || (objects = {}));
+    GUI.Label = Label;
+})(GUI || (GUI = {}));
 //# sourceMappingURL=label.js.map

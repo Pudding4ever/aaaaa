@@ -15,8 +15,8 @@ var __extends = (this && this.__extends) || function (d, b) {
  *
  * @module objects
  */
-var objects;
-(function (objects) {
+var GUI;
+(function (GUI) {
     /**
      * This simple Button class extends the createjs.Bitmap object.
      * It includes two private methods to handle mouseover and mouseout events.
@@ -38,7 +38,8 @@ var objects;
          * @param {boolean} isCentered
          */
         function Button(imageString, x, y, isCentered) {
-            _super.call(this, core.textureAtlas, imageString);
+            _super.call(this, core.assets.getResult(imageString));
+            this.position = new objects.Vector2;
             // Check if user wants to change regX and regY values to the center 
             if (isCentered) {
                 this.regX = this.getBounds().width * 0.5;
@@ -46,6 +47,8 @@ var objects;
             }
             this.x = x;
             this.y = y;
+            this.position.x = x;
+            this.position.y = y;
             // binds the mouseover and mouseout events to the button object
             this.on("mouseover", this._mouseOver, this);
             this.on("mouseout", this._mouseOut, this);
@@ -72,8 +75,8 @@ var objects;
             this.alpha = 1.0;
         };
         return Button;
-    }(createjs.Sprite));
-    objects.Button = Button;
-})(objects || (objects = {}));
+    }(createjs.Bitmap));
+    GUI.Button = Button;
+})(GUI || (GUI = {}));
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 //# sourceMappingURL=button.js.map

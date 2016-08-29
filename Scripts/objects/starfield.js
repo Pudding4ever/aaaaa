@@ -27,7 +27,7 @@ var objects;
          * @returns {void}
          */
         Starfield.prototype._reset = function () {
-            this.x = -960;
+            this.x = -4000;
         };
         /**
          * This method checks if the object has reached its boundaries
@@ -52,7 +52,7 @@ var objects;
          */
         Starfield.prototype.start = function () {
             this._reset();
-            this._dx = 5; // 5px per frame down
+            this._dx = 3; // 3px per frame down
         };
         /**
          * This method updates the object's properties

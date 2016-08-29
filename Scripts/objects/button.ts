@@ -12,7 +12,7 @@
  * 
  * @module objects
  */
-module objects {
+module GUI {
     /**
      * This simple Button class extends the createjs.Bitmap object.
      * It includes two private methods to handle mouseover and mouseout events.
@@ -21,7 +21,10 @@ module objects {
      * @class Button
      * @extends {createjs.Bitmap}
      */
-    export class Button extends createjs.Sprite {
+    export class Button extends createjs.Bitmap {
+
+        position:objects.Vector2;
+        public triggered:boolean;
 
         // CONSTRUCTOR +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -34,8 +37,8 @@ module objects {
          * @param {boolean} isCentered
          */
         constructor(imageString: string, x:number, y:number, isCentered:boolean) {
-            super(core.textureAtlas, imageString);
-
+            super(core.assets.getResult(imageString));
+            this.position = new objects.Vector2;
             // Check if user wants to change regX and regY values to the center 
             if(isCentered) {
                 this.regX = this.getBounds().width * 0.5;
@@ -44,7 +47,8 @@ module objects {
 
             this.x = x;
             this.y = y;
-
+            this.position.x = x;
+            this.position.y = y;
             // binds the mouseover and mouseout events to the button object
             this.on("mouseover", this._mouseOver, this);
             this.on("mouseout", this._mouseOut, this)

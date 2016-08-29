@@ -26,7 +26,7 @@ module objects {
          * @returns {void}
          */
         private _reset():void {
-            this.x = -960;
+            this.x = -4000;
         }
 
         /**
@@ -54,7 +54,7 @@ module objects {
          */
         public start():void {
             this._reset();
-            this._dx = 5; // 5px per frame down
+            this._dx = 3; // 3px per frame down
         }
 
         /**
