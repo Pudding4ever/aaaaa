@@ -19,6 +19,7 @@ var scenes;
          */
         start.prototype.Start = function () {
             createjs.Sound.play("music");
+            this._helpgraphic = new GUI.Button("help", 600, 300, true);
             this.bullet_array = core.bullet_array;
             this._collision = new managers.Collision();
             this._Starfield = new objects.Starfield("starfield");
@@ -29,6 +30,7 @@ var scenes;
             this.addChild(this._PStarfield);
             this.addChild(this._player);
             this.addChild(this._startButton);
+            this.addChild(this._helpgraphic);
             // Add Menu Labels
             this._titleLabel = new GUI.Label("SPACE BATTLE!", "45px", "Impact", "#FFFFFF", 200, 160, true);
             this.addChild(this._titleLabel);

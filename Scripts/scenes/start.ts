@@ -5,6 +5,7 @@ module scenes {
         private _PStarfield: objects.PStarfield;
         private _titleLabel: GUI.Label;
         private _creditLabel: GUI.Label;
+        private _helpgraphic: GUI.Button;
         private _startButton: GUI.Button;
         private _helpButton: GUI.Button;
         private _exitButton: GUI.Button;
@@ -25,6 +26,7 @@ module scenes {
          */
         public Start(): void {
             createjs.Sound.play("music");
+            this._helpgraphic = new GUI.Button("help", 600, 300, true);
             this.bullet_array = core.bullet_array;
             this._collision = new managers.Collision();
             this._Starfield = new objects.Starfield("starfield");
@@ -35,6 +37,7 @@ module scenes {
             this.addChild(this._PStarfield);
             this.addChild(this._player);
             this.addChild(this._startButton);
+            this.addChild(this._helpgraphic);
             // Add Menu Labels
             this._titleLabel = new GUI.Label(
                 "SPACE BATTLE!", "45px", "Impact", "#FFFFFF",

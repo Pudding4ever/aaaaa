@@ -24,7 +24,7 @@ var scenes;
             this.bullet_array = core.bullet_array;
             this._collision = new managers.Collision();
             this._Starfield = new objects.Starfield("starfield");
-            this._PStarfield = new objects.PStarfield("pstarfield");
+            this._PStarfield = new objects.PStarfield("nebula");
             this._player = new objects.Player("player");
             this.Player = this._player;
             this.addChild(this._Starfield);
@@ -89,7 +89,7 @@ var scenes;
         play2.prototype._PopulateAsteroidField = function () {
             console.log("populate asteroids called");
             var asteroid;
-            for (var i = 0; i <= 3; i++) {
+            for (var i = 0; i <= 5; i++) {
                 asteroid = new objects.enemy("eship");
                 this.addChild(asteroid);
                 this.asteroid_array.push(asteroid);
