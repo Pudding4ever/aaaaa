@@ -73,7 +73,7 @@ var scenes;
             // Switch the scene\
             core.deactivateallbullets();
             core.drawbullets();
-            core.scene = config.scene.PLAY;
+            core.scene = config.scene.PLAY3;
             core.changeScene();
         };
         return start;

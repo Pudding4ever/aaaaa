@@ -114,6 +114,7 @@ module scenes {
             var asteroid: objects.enemy;
             for (var i: number = 0; i <= 5; i++){
                 asteroid = new objects.enemy("eship");
+                asteroid._etype = 0;
                 this.addChild(asteroid);
                 this.asteroid_array.push(asteroid);
                 console.log("made new enemy");

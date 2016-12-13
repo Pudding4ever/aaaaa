@@ -66,6 +66,22 @@ var managers;
                 }
             }
         };
+        Collision.prototype.checkBulletEnemy2 = function (array, other, destroyed) {
+            //AWFUL HACK SO THE DAMN THING WILL JUST WORK IN TIME FOR DEMONSTRATION
+            for (var i = 0; i < array.length; i++) {
+                var a = array[i];
+                if (objects.Vector2.distance(other.position, a.position) < ((5 + a.halfHeight)) && other.active == true) {
+                    console.log("Enemy struck by bullet");
+                    createjs.Sound.play("explosion");
+                    other.active = false;
+                    //only the blue enemies count
+                    if (array[i]._etype == 3) {
+                        destroyed.destroyed -= 1;
+                    }
+                    console.log(destroyed.destroyed);
+                }
+            }
+        };
         Collision.prototype.checkBulletBoss = function (boss, other) {
             {
                 var a = boss;

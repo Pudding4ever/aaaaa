@@ -6,6 +6,7 @@ var core;
     // score, lives, and collision
     core.score = 0;
     core.lives = 3;
+    core.win = false;
     //Object pools for projectiles
     core.bullet_array = new Array();
     //Main title screen text labels/buttons
@@ -32,7 +33,8 @@ var core;
         { id: "explosion", src: "Assets/audio/explosion.wav" },
         { id: "hurt", src: "Assets/audio/hurt.wav" },
         { id: "pew", src: "Assets/audio/pew.wav" },
-        { id: "music", src: "Assets/audio/music.mp3" }
+        { id: "music", src: "Assets/audio/music.mp3" },
+        { id: "gameover", src: "Assets/audio/gameover.mp3" }
     ];
     //Game Scenes
     var start;
@@ -113,7 +115,7 @@ var core;
             case config.scene.PLAY3:
                 core.stage.removeAllChildren();
                 play3 = new scenes.play3();
-                core.currentScene = play2;
+                core.currentScene = play3;
                 break;
         }
     }

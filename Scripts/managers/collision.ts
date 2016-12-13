@@ -84,6 +84,33 @@ module managers {
                     }
                  }
             }
+
+
+
+                      public checkBulletEnemy2(array: Array<objects.enemy>, other: objects.cBullet, destroyed: scenes.play3)
+            {
+
+                //AWFUL HACK SO THE DAMN THING WILL JUST WORK IN TIME FOR DEMONSTRATION
+                
+                 for (var i: number = 0; i < array.length; i++)
+                 {
+                    var a = array[i]; 
+                    if (objects.Vector2.distance(other.position, a.position) < ((5 + a.halfHeight)) && other.active == true) {
+                    console.log("Enemy struck by bullet");
+                    createjs.Sound.play("explosion");
+                    other.active = false;
+                    //only the blue enemies count
+                    if(array[i]._etype == 3)
+                    {
+                    destroyed.destroyed -= 1;
+                    }
+                    console.log(destroyed.destroyed);
+                    }
+                 }
+            }
+
+
+
    public checkBulletBoss(boss: objects.boss, other: objects.cBullet)
             {
                  {

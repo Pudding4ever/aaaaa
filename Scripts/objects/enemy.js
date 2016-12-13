@@ -95,6 +95,7 @@ var objects;
             this.e = new createjs.Bitmap("../../Assets/images/eship.png");
             this.e2 = new createjs.Bitmap("../../Assets/images/eship2.png");
             this.e3 = new createjs.Bitmap("../../Assets/images/eship3.png");
+            this.b = new createjs.Bitmap("../../Assets/images/spacedragon.png");
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -116,15 +117,18 @@ var objects;
             this._reset();
         };
         enemy.prototype._reset = function () {
+            console.log("RESET TO TYPE " + this._etype);
             //SET ENEMY TYPE
             this.evade = false;
-            if (this._etype < 2) {
-                this._etype++;
+            if (this._etype != 3) {
+                if (this._etype < 2) {
+                    this._etype++;
+                }
+                else {
+                    this._etype = 0;
+                }
+                ;
             }
-            else {
-                this._etype = 0;
-            }
-            ;
             switch (this._etype) {
                 case 0:
                     this.image = this.e.image;
@@ -142,6 +146,13 @@ var objects;
                     break;
                 case 2:
                     this.image = this.e3.image;
+                    this._dy = 0;
+                    this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
+                    this.x = 1000;
+                    this.y = Math.floor((Math.random() * (900 - (this.height * 0.5))) + (this.height * 0.5));
+                    break;
+                case 3:
+                    this.image = this.b.image;
                     this._dy = 0;
                     this._dx = Math.floor((Math.random() * -2) - 2); // horizontal drift
                     this.x = 1000;
@@ -211,6 +222,7 @@ var objects;
                 case 2:
                     //dogfight the player
                     //that is: move to 800x, match y with player, fire a burst of bullets, withdraw
+                    //Couldn't get the little bastards firing bullets but they totally work as just evasive enemies.
                     console.log(this.evade);
                     if (this.x >= 600 && this.evade == false) {
                         this._dx = -5;
@@ -242,6 +254,48 @@ var objects;
                             //fire bullets
                             console.log("FIRE");
                             this._dy = 7;
+                            this.evade = true;
+                        }
+                    }
+                    break;
+                case 3:
+                    //boss behaviour
+                    //that is: move to 800x, match y with player, charge across the screen at high speed attempting to ram.
+                    console.log(this.evade);
+                    if (this.x >= 700 && this.evade == false) {
+                        this._dx = -5;
+                    }
+                    else {
+                        this._dx = 0;
+                    }
+                    ;
+                    if (this.evade == true) {
+                        this._dx = -12;
+                    }
+                    if (this.x >= 1000) {
+                        this.evade = false;
+                    }
+                    if (core.currentScene.Player.y > this.y && this.evade == false) {
+                        this._dy = 3;
+                    }
+                    if (core.currentScene.Player.y < this.y && this.evade == false) {
+                        this._dy = -3;
+                    }
+                    if (core.currentScene.Player.y > this.y && this.evade == true) {
+                        this._dy = 6;
+                    }
+                    if (core.currentScene.Player.y < this.y && this.evade == true) {
+                        this._dy = -6;
+                    }
+                    if ((core.currentScene.Player.y - this.y) < 5 && (core.currentScene.Player.y - this.y) > -5 && this.x <= 750 && this.evade == false) {
+                        if (this.y > 270) {
+                            console.log("CHAAAARGE");
+                            //fire bullets
+                            this.evade = true;
+                        }
+                        else {
+                            //fire bullets
+                            console.log("CHAAAARGE");
                             this.evade = true;
                         }
                     }

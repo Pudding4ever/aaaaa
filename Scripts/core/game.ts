@@ -16,6 +16,8 @@ namespace core {
     export let score: number = 0;
     export let lives: number = 3;
 
+    export let win: boolean = false;
+
     //Object pools for projectiles
     export var bullet_array: Array<objects.cBullet> = new Array<objects.cBullet>();
 
@@ -45,11 +47,12 @@ namespace core {
         { id: "eship2", src: "../../Assets/images/eship2.png" },
         { id: "eship3", src: "../../Assets/images/eship3.png" },
         { id: "boss", src: "../../Assets/images/spacedragon.png" },
-          { id: "help", src: "../../Assets/images/instructions.png" },
+        { id: "help", src: "../../Assets/images/instructions.png" },
         { id: "explosion", src: "Assets/audio/explosion.wav" },
         { id: "hurt", src: "Assets/audio/hurt.wav" },
         { id: "pew", src: "Assets/audio/pew.wav" },
-        { id: "music", src: "Assets/audio/music.mp3" }
+        { id: "music", src: "Assets/audio/music.mp3" },
+        { id: "gameover", src: "Assets/audio/gameover.mp3" }
     ];
 
     //Game Scenes
@@ -142,7 +145,7 @@ export function changeScene(): void {
         case config.scene.PLAY3:
             stage.removeAllChildren();
             play3 = new scenes.play3();
-            currentScene = play2;
+            currentScene = play3;
             break;
     }
     

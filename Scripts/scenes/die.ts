@@ -37,17 +37,23 @@ module scenes {
 
             // add this scene to the global scene container
             core.stage.addChild(this);
+            createjs.Sound.play("gameover");
         }
 
         public Update():void {
             // scene updates happen here...
             this._Starfield.update();
+            if(core.win == true)
+            {
+                this._menuLabel.text = "YOU WIN GOOD JOB"
+            }
         }
 
         // EVENT HANDLERS ++++++++++++++++
 
         private _startButtonClick(event:createjs.MouseEvent):void {
             // Switch the scene
+            core.win = false;
             core.scene = config.scene.START;
             core.changeScene();
         }

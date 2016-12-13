@@ -32,14 +32,19 @@ var scenes;
             this._startButton.on("click", this._startButtonClick, this);
             // add this scene to the global scene container
             core.stage.addChild(this);
+            createjs.Sound.play("gameover");
         };
         die.prototype.Update = function () {
             // scene updates happen here...
             this._Starfield.update();
+            if (core.win == true) {
+                this._menuLabel.text = "YOU WIN GOOD JOB";
+            }
         };
         // EVENT HANDLERS ++++++++++++++++
         die.prototype._startButtonClick = function (event) {
             // Switch the scene
+            core.win = false;
             core.scene = config.scene.START;
             core.changeScene();
         };
